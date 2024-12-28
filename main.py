@@ -1,4 +1,5 @@
 import json
+import random
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
@@ -7,15 +8,12 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram import F
-from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
-from aiohttp import web
-import asyncio
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 API_TOKEN = "7924196952:AAFO0CbRKhD23Njx9-wa2otNw9OK4lURlgI"
 WEBHOOK_PATH = "/bot/"
-WEBHOOK_URL = "https://8000-idx-moderator-1735212668681.cluster-blu4edcrfnajktuztkjzgyxzek.cloudworkstations.dev" + WEBHOOK_PATH
+WEBHOOK_URL = "https://hikoya-18.onrender.com/" + WEBHOOK_PATH
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
@@ -253,9 +251,7 @@ async def bot_webhook(update: dict):
 
 @app.on_event("startup")
 async def on_startup():
-    webhook_info = await bot.get_webhook_info()
-    if webhook_info.url != WEBHOOK_URL:
-        await bot.set_webhook(url=WEBHOOK_URL)
+    await bot.set_webhook(url=WEBHOOK_URL)
 
 @app.on_event("shutdown")
 async def on_shutdown():
